@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './App.css';
-import { Link } from 'react-router-dom'; 
 import Modal from './Modal';
+import {Link} from 'react-router-dom';
 
 function App() {
 
@@ -31,12 +31,13 @@ function App() {
       <button onClick={openModal} style={{float: 'right', marginRight: 130, marginTop: -180}} className="subbutton">
           SUBSCRIBE
       </button>
-      <Link to='/news'>
+      <Link to='/News' >
         <button style={{float: 'right', marginRight: 130, marginTop: -90,  }} className='checkbutton'>
           CHECK WHAT'S NEW!
         </button>
       </Link>
-    <Modal open = {modalOpen} close = {closeModal} header = "Enter your email for subscription!">
+    <Modal open = {modalOpen} close = {closeModal} 
+    header = "Enter your email for subscription!">
     </Modal>
     </React.Fragment>    
   );
