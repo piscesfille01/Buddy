@@ -1,17 +1,136 @@
 import React, { useState } from 'react';
 import './App.css';
-import { Link } from 'react-router-dom'; 
 import Modal from './Modal';
+import News from './components/News';
 
 function App() {
 
   const [modalOpen, setModalOpen] = useState(false);
+  const [newsOpen, setNewsOpen] = useState(false);
 
   const openModal = () => {
     setModalOpen(true);
   };
   const closeModal = () => {
     setModalOpen(false);
+  };
+
+  // Get Data
+  const [books, setBooks] = useState([]);
+  const searchPsychology = `https://www.googleapis.com/books/v1/volumes?q=psychology&orderBy=relevance&printType=books&projection=lite`;
+  const searchMind = `https://www.googleapis.com/books/v1/volumes?q=mind&orderBy=relevance&printType=books&projection=lite`
+  const searchMental = `https://www.googleapis.com/books/v1/volumes?q=mental&orderBy=relevance&printType=books&projection=lite`
+
+  const [quotes, setQuotes] = useState([]);
+  const searchQuote =  `https://type.fit/api/quotes`;
+
+  function getAllData(){
+      fetch(searchPsychology)
+      .then(response => {
+          if (response.ok) {
+              console.log(response.status);
+              return response.json();
+          } else {
+              if (response.status === 404) {
+                  console.log("There seems to be an error");
+              } else {
+                  console.log("Something is wrong");
+              }
+          }
+      })
+      .then(result => {
+          // select the books
+          const element = result.items[Math.floor(Math.random()*10)];
+
+          let item = {}; 
+
+          item['title'] = element.volumeInfo.title;
+          item['author'] = element.volumeInfo.authors[0];
+          item['description'] = element.volumeInfo.description;
+          item['image'] = element.volumeInfo.imageLinks.thumbnail;
+          
+          books.push(item);
+          setBooks(books);
+      }).then(
+        fetch(searchMental)
+        .then(response => {
+            if (response.ok) {
+                console.log(response.status);
+                return response.json();
+            } else {
+                if (response.status === 404) {
+                    console.log("There seems to be an error");
+                } else {
+                    console.log("Something is wrong");
+                }
+            }
+        })
+        .then(result => {
+            // select the books
+            const element = result.items[Math.floor(Math.random()*10)];
+
+            let item = {}; 
+
+            item['title'] = element.volumeInfo.title;
+            item['author'] = element.volumeInfo.authors[0];
+            item['description'] = element.volumeInfo.description;
+            item['image'] = element.volumeInfo.imageLinks.thumbnail;
+            
+            books.push(item);
+            setBooks(books);
+        }).then(
+          fetch(searchMind)
+          .then(response => {
+              if (response.ok) {
+                  console.log(response.status);
+                  return response.json();
+              } else {
+                  if (response.status === 404) {
+                      console.log("There seems to be an error");
+                  } else {
+                      console.log("Something is wrong");
+                  }
+              }
+          })
+          .then(result => {
+              // select the books
+              const element = result.items[Math.floor(Math.random()*10)];
+
+              let item = {}; 
+
+              item['title'] = element.volumeInfo.title;
+              item['author'] = element.volumeInfo.authors[0];
+              item['description'] = element.volumeInfo.description;
+              item['image'] = element.volumeInfo.imageLinks.thumbnail;
+              
+              books.push(item);
+              setBooks(books);
+              setNewsOpen(true);
+          }).then(
+            fetch(searchQuote)
+            .then(response => {
+              if (response.ok) {
+                  console.log(response.status);
+                  return response.json();
+              } else {
+                  if (response.status === 404) {
+                      console.log("There seems to be an error");
+                  } else {
+                      console.log("Something is wrong");
+                  }
+              }
+            })
+            .then(result => {
+              for (let i = 0; i < 3; i++) {
+                quotes.push(result[Math.floor(Math.random()*10)]);
+              }
+              setQuotes(quotes);
+            })
+          )
+        )
+      )
+
+      
   };
 
   return (
@@ -31,13 +150,12 @@ function App() {
       <button onClick={openModal} style={{float: 'right', marginRight: 130, marginTop: -180}} className="subbutton">
           SUBSCRIBE
       </button>
-      <Link to='/news'>
-        <button style={{float: 'right', marginRight: 130, marginTop: -90,  }} className='checkbutton'>
-          CHECK WHAT'S NEW!
-        </button>
-      </Link>
-    <Modal open = {modalOpen} close = {closeModal} header = "Enter your email for subscription!">
-    </Modal>
+      <button onClick={getAllData} style={{float: 'right', marginRight: 130, marginTop: -90,  }} className='checkbutton'>
+        CHECK WHAT'S NEW!
+      </button>
+      <Modal open = {modalOpen} close = {closeModal} header = "Enter your email for subscription!">
+      </Modal>
+      <News showNews={newsOpen} books={books} quotes={quotes}></News>
     </React.Fragment>    
   );
 }
