@@ -65,7 +65,7 @@ const Modal = (props) => {
             <button 
               className='submitb'
               id="submit-button"
-              onSubmit={ addNewData }
+              onClick={ addNewData }
             >SUBMIT
             </button>
           </main>
