@@ -24,7 +24,7 @@ const Modal = (props) => {
       console.log("No such document!");
     }
   }
-
+  
   return (
     <div className={open ? 'openModal modal' : 'modal'}>
       {open ? (
@@ -38,12 +38,14 @@ const Modal = (props) => {
           </header>
           <main>
             <input 
-              id="email-input" 
+              id="email-input" className='emailinput'
               type='text' 
               placeholder='Enter your email address' 
               value={email}
-              onChange={e => setEmail(e.target.value)}></input>
-            <button className='submitb'
+              onChange={e => setEmail(e.target.value)}>
+              </input>
+            <button 
+              className='submitb'
               id="submit-button"
               onClick={ addNewData }
             >SUBMIT
