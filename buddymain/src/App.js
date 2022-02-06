@@ -152,10 +152,10 @@ function App() {
         <button className='whosmade' style={{float: 'right', marginRight: 130, marginTop: -230}}>WHO'S MADE?</button>
       </Link>
       <button onClick={openModal} style={{float: 'right', marginRight: 130, marginTop: -180}} className="subbutton">
-          SUBSCRIBE
+          SUBSCRIBE 📖
       </button>
       <button onClick={getAllData} style={{float: 'right', marginRight: 130, marginTop: -90,  }} className='checkbutton'>
-        CHECK WHAT'S NEW!
+        CHECK WHAT'S NEW! 🎯
       </button>
       <Modal open = {modalOpen} close = {closeModal} header = "Enter your email for subscription!">
       </Modal>
