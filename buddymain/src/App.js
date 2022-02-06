@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './App.css';
 import Modal from './Modal';
 import News from './components/News';
+import { Link } from 'react-scroll';
 
 function App() {
 
@@ -147,6 +148,9 @@ function App() {
         <h1>BUDDY! IS AN EMAIL SUBSCRIPTION PROGRAM THAT SENDS </h1>
         <h1>PSYCHOLOGICAL RESOURCES TO HELP PEOPLE REGAIN PEACE OF MINDS</h1>
       </div>
+      <Link to='bottom' smooth = {true} >
+        <button className='whosmade' style={{float: 'right', marginRight: 130, marginTop: -230}}>WHO'S MADE?</button>
+      </Link>
       <button onClick={openModal} style={{float: 'right', marginRight: 130, marginTop: -180}} className="subbutton">
           SUBSCRIBE
       </button>
@@ -156,6 +160,13 @@ function App() {
       <Modal open = {modalOpen} close = {closeModal} header = "Enter your email for subscription!">
       </Modal>
       <News showNews={newsOpen} books={books} quotes={quotes}></News>
+      <button className='bottom'>
+        <h1>BUDDY! is made and developed from; Eunchae Seong and Ellie Kang from University of Toronto, CA</h1>
+        <h1>💻</h1>
+        <h1>For contact, </h1>
+        <h1>Euncahe Seong: https://www.linkedin.com/in/eunchae-seong-551312212/</h1>
+        <h1>Ellie Kang: https://www.linkedin.com/in/ellie-kang-4a652719a/</h1>
+      </button>
     </React.Fragment>    
   );
 }
