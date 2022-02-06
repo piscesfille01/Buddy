@@ -137,7 +137,7 @@ function App() {
   return (
     <React.Fragment>
       <div className='headerr'>
-      <h1 >BUDDY!</h1>
+      <h1 >BUDDY! 🧸</h1>
       </div>
       <div className='buddy'>
         <h1>GET RECOMMENDATIONS</h1>
