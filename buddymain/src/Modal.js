@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './Modal.css';
 import { db } from './firebase/firebase';
 import { doc, getDoc, setDoc } from 'firebase/firestore';
+import { send } from 'emailjs-com';
 
 const Modal = (props) => {
   const { open, close, header } = props;
@@ -15,10 +16,27 @@ const Modal = (props) => {
     if (docSnap.exists()) {
       emails = docSnap.data()['email'];
       emails.push(email);
-      setEmail('');
+      
       await setDoc(docRef, {
         'email': emails
       });
+
+      const newEmail = {'from_name': 'Buddy!', 'toNewEmail': email};
+
+      // Send a confirmation email
+      send(
+        'service_1top34t',
+        'contact_form',
+        newEmail,
+        'user_VUH2TYA87M36PrsrepyPu'
+      ).then((response) => {
+        console.log('SUCCESS!', response.status, response.text);
+      }).catch((err) => {
+        console.log('Failed', err);
+      });
+
+      setEmail('');
+      
     } else {
       // doc.data() will be undefined in this case
       console.log("No such document!");
